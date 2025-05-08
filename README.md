@@ -6,15 +6,16 @@
 了解しました。**バックエンドを Spring Boot（Java）** 前提に置き換えたバージョンで再整理します。
 ― 変更点は主に **Microservice レイヤー** と、ML 推論の呼び出し方法を Java からでも扱いやすい形に寄せた部分です。
 
-| レイヤー                        | 主目的                   | 想定 OSS / サービス                                                                                                                   | キー技術・プロトコル                |
-| --------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| **EC Shop** (ドメイン)          | フロント／決済／カート           | Next.js (CSR) · Tailwind CSS · Stripe · **Spring Boot BFF (gateway-api)**                                                       | REST / GraphQL            |
-| **Hyperledger** (最深部台帳)     | トランザクション保証・サプライチェーン追跡 | Hyperledger Fabric 2.x (Raft) · Chaincode (Go)                                                                                  | gRPC · MSP · CouchDB      |
-| **Kubernetes** (オーケストレーション) | コンテナ運用基盤              | kind (local) → EKS · Helm · Kustomize · Argo CD · Prometheus · Loki                                                             | CRI · CNI · GitOps        |
-| **DWH** (データレイヤー)           | 分析基盤・履歴保管             | AWS Glue · Athena · Redshift／Snowflake · dbt · Parquet · Iceberg                                                                | S3 · SQL · Glue ETL       |
-| **ML** (推論／分析)              | 予測モデル・レコメンド           | Python + scikit-learn · TensorFlow · **ONNX Runtime (Java API)**                                                                | Batch / Real-time Serving |
-| **Microservice** (アプリ分割)    | 独立デプロイ・スケール           | **Spring Boot 3 + Spring Cloud** · Spring WebFlux · Spring Data · API Gateway (Spring Cloud Gateway / Istio) · Kafka / RabbitMQ | OAuth2(OIDC) · OpenAPI    |
-| **Digital Twin** (最前面可視化)   | 物理情報の仮想同期             | AWS IoT TwinMaker · Grafana · Three.js · MQTT · WebSocket                                                                       | Twin graph · 3D scene     |
+| レイヤー                        | 主目的                   | 想定 OSS / サービス                                                                                                                                 | キー技術・プロトコル                |
+| --------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| **EC Shop** (ドメイン)          | フロント／決済／カート           | Next.js (CSR) · Tailwind CSS · Stripe · **Spring Boot BFF (gateway-api)**                                                                     | REST · GraphQL            |
+| **Hyperledger** (最深部台帳)     | トランザクション保証・サプライチェーン追跡 | Hyperledger Fabric 2.x (Raft) · Chaincode (Go)                                                                                                | gRPC · MSP · CouchDB      |
+| **Kubernetes** (オーケストレーション) | コンテナ運用基盤              | kind (local) → EKS · Helm · Kustomize · Argo CD · Prometheus · Loki                                                                           | CRI · CNI · GitOps        |
+| **DWH** (データレイヤー)           | 分析基盤・履歴保管             | AWS Glue · Athena · Redshift／Snowflake · dbt · Parquet · Iceberg · Kinesis Data Firehose · S3                                             | S3 · SQL · Glue ETL       |
+| **ML** (推論／分析)              | 予測モデル・レコメンド           | Python + scikit-learn · TensorFlow · **ONNX Runtime (Java API)**                                                                              | Batch · Real-time Serving |
+| **Microservice** (アプリ分割)    | 独立デプロイ・スケール           | **Spring Boot 3 + Spring Cloud** · Spring WebFlux · Spring Data · API Gateway (Spring Cloud Gateway / Istio) · ActiveMQ · GraphQL | OAuth2 (OIDC) · OpenAPI   |
+| **Digital Twin** (最前面可視化)   | 物理情報の仮想同期             | AWS IoT TwinMaker · Grafana · MQTT · WebSocket · CloudWatch                                                                               | Twin graph · 3D scene     |
+
 
 > #### 補助インフラ / ツールチェーン
 >
