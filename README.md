@@ -43,5 +43,18 @@
 └─ docs/                  # Arch diagrams, ADR, API specs
 ```
 
-これで **Spring Boot Java** を中核に据えた全スタックがひと目で伝わります。
-リポジトリ名 **`ecshop-hyperledger-k8s-dwh-ml-microservice-digital-twin`** とあわせ、「黒澤さんらしい全部入り PoC」感はばっちりです！ 🚀
+@startuml
+actor User
+User -> CartService: POST /checkout
+CartService -> Artemis: JMS msg cart.checkout
+OrderService --> OrderDB: create ORDER_PENDING
+OrderService -> Artemis: JMS msg order.pending
+PaymentService -> Stripe: paymentIntent
+Stripe --> PaymentService: webhook success
+PaymentService -> Artemis: JMS msg payment.paid
+OrderService -> FabricGateway: CreateOrderTx
+FabricGateway -> Fabric: commit
+OrderService --> OrderDB: ORDER_COMPLETED
+OrderService -> NotificationService: REST /sendMail
+@enduml
+
